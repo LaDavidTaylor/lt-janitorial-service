@@ -1,0 +1,74 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import InnerHero from "../components/InnerHero.astro";
+import QuoteForm from "../components/QuoteForm.astro";
+import { business } from "../data/business";
+---
+
+<BaseLayout
+  title="Request a Commercial Cleaning Quote"
+  description="Prepare a commercial cleaning and floor care quote request for LT Janitorial in Dallas, Collin, or Rockwall County."
+  canonicalPath="/quote"
+>
+  <InnerHero
+    eyebrow="Facility quote planner"
+    title="Start with the details that make the scope useful."
+    intro="Tell LT Janitorial what the facility is, where it operates, what needs attention, and when service could happen. The planner opens a prepared email for your review."
+    image="/images/generated/office-cleaning-hero.webp"
+    imageAlt="Professional commercial office interior ready for a cleaning walk through"
+    primaryHref="#quote-form"
+    primaryLabel="Open the quote planner"
+    secondaryHref={business.calendly}
+    secondaryLabel="Use the scheduling calendar"
+  />
+
+  <section id="quote-form" class="section section-dark">
+    <div class="shell quote-layout">
+      <div>
+        <p class="eyebrow">What happens here</p>
+        <h2>Your details stay in your hands.</h2>
+        <p>The quote planner prepares a message inside your own email application. Your facility details remain on your device until you review the message and choose to send it to <a href={business.emailHref}>{business.email}</a>.</p>
+        <ol>
+          <li>Complete the facility fields.</li>
+          <li>Review the prepared email.</li>
+          <li>Send it from your normal email account.</li>
+          <li>Use the scheduling calendar if you are ready to select a walk through time.</li>
+        </ol>
+      </div>
+      <QuoteForm />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .quote-layout {
+    display: grid;
+    grid-template-columns: minmax(18rem, 0.35fr) minmax(0, 0.65fr);
+    gap: clamp(3rem, 8vw, 8rem);
+    align-items: start;
+  }
+
+  .quote-layout > div:first-child {
+    position: sticky;
+    top: 7.5rem;
+  }
+
+  .quote-layout > div:first-child p,
+  .quote-layout li {
+    color: var(--muted-dark);
+  }
+
+  .quote-layout ol {
+    padding-left: 1.25rem;
+  }
+
+  @media (max-width: 900px) {
+    .quote-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .quote-layout > div:first-child {
+      position: static;
+    }
+  }
+</style>

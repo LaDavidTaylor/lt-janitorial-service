@@ -1,0 +1,246 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import FAQList from "../../components/FAQList.astro";
+import CTASection from "../../components/CTASection.astro";
+import { business } from "../../data/business";
+import { getImageAlt } from "../../data/images";
+import { industries, type IndustryPage } from "../../data/industries";
+import { breadcrumbSchema, faqSchema, serviceSchema } from "../../lib/schema";
+
+export function getStaticPaths() {
+  return industries.map((industry) => ({ params: { slug: industry.slug }, props: { industry } }));
+}
+
+interface Props {
+  industry: IndustryPage;
+}
+
+const { industry } = Astro.props;
+const secondaryLabel = industry.hero.secondaryCta.toLowerCase();
+const secondaryHref = secondaryLabel.includes("discuss")
+  ? business.phoneHref
+  : secondaryLabel.includes("explore") || secondaryLabel.includes("review")
+    ? "/services"
+    : "/quote";
+const schemas = [
+  breadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "Industries", path: "/industries" },
+    { name: industry.name, path: `/industries/${industry.slug}` },
+  ]),
+  serviceSchema(`${industry.name} cleaning`, industry.schemaDescription, undefined, `/industries/${industry.slug}`),
+  faqSchema(industry.faqs),
+];
+---
+
+<BaseLayout
+  title={industry.seo.title}
+  description={industry.seo.description}
+  canonicalPath={`/industries/${industry.slug}`}
+  image={industry.image.src}
+  imageAlt={getImageAlt(industry.image.src)}
+  schemas={schemas}
+>
+  <Breadcrumbs items={[{ label: "Industries", href: "/industries" }, { label: industry.name }]} />
+
+  <section class="industry-hero">
+    <div class="industry-media"><img src={industry.image.src} alt={getImageAlt(industry.image.src)} width="1672" height="941" loading="eager" fetchpriority="high" style={`object-position:${industry.image.focalPoint}`} /></div>
+    <div class="shell industry-content">
+      <p class="eyebrow">{industry.hero.eyebrow}</p>
+      <h1>{industry.hero.title}</h1>
+      <p class="lede">{industry.hero.lede}</p>
+      <div class="hero-actions">
+        <a class="button button-gold" href="/quote">{industry.hero.primaryCta}</a>
+        <a class="button button-ghost" href={secondaryHref}>{industry.hero.secondaryCta}</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="industry-answer section-light">
+    <div class="shell"><p class="eyebrow">Facility context</p><p>{industry.serviceContext}</p></div>
+  </section>
+
+  <section class="section section-paper">
+    <div class="shell content-layout">
+      <div class="prose">
+        <h2>Build the service around the facility.</h2>
+        <p>{industry.overview[0]}</p>
+        <p>{industry.overview[1]}</p>
+      </div>
+      <aside class="detail-aside">
+        <p class="eyebrow">Facility profile</p>
+        <h3>{industry.name}</h3>
+        <p>Final tasks, access, frequency, products, equipment, and exclusions are established after the actual facility is reviewed.</p>
+        <a class="button button-dark" href="/quote">Request a facility walk through</a>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section-light">
+    <div class="shell">
+      <div class="section-intro"><div><p class="eyebrow">Facility priorities</p><h2>The scope should account for these operating realities.</h2></div><p>Every item below comes from the way this facility type is used and the conditions the team will encounter.</p></div>
+      <div class="priority-grid">
+        {industry.facilityPriorities.map((priority, index) => <article><span>{String(index + 1).padStart(2, "0")}</span><h3>{priority}</h3></article>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-dark">
+    <div class="shell">
+      <div class="section-intro"><div><p class="eyebrow">Planning sequence</p><h2>Build the cleaning plan around the facility operation.</h2></div><p>The process changes by industry because the traffic, rooms, materials, access, and operating risks change.</p></div>
+      <div class="process-grid">
+        {industry.process.map((step, index) => <article class="process-step"><span class="step-number">{String(index + 1).padStart(2, "0")}</span><h3>{step.title}</h3><p>{step.description}</p></article>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-paper">
+    <div class="shell related-layout">
+      <div><p class="eyebrow">Related services and markets</p><h2>Connect the facility type to the right work.</h2></div>
+      <div class="related-ledger">{industry.relatedLinks.map((link, index) => <a href={link.href}><span>{String(index + 1).padStart(2, "0")}</span><strong>{link.label}</strong><b aria-hidden="true">↗</b></a>)}</div>
+    </div>
+  </section>
+
+  <section class="section section-light">
+    <div class="shell faq-layout"><div><p class="eyebrow">{industry.name} questions</p><h2>Clarify the facility before service begins.</h2></div><FAQList items={industry.faqs} /></div>
+  </section>
+
+  <CTASection eyebrow={industry.name} title="Build the scope around this facility, not an industry label." />
+</BaseLayout>
+
+<style>
+  .industry-hero {
+    position: relative;
+    min-height: 50rem;
+    display: grid;
+    align-items: end;
+    isolation: isolate;
+    overflow: hidden;
+  }
+
+  .industry-media {
+    position: absolute;
+    z-index: -2;
+    inset: 0;
+  }
+
+  .industry-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .industry-hero::after {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(9, 9, 7, 0.98), rgba(9, 9, 7, 0.74) 58%, rgba(9, 9, 7, 0.2));
+    content: "";
+  }
+
+  .industry-content {
+    max-width: 72rem;
+    padding-block: clamp(6rem, 11vw, 10rem);
+  }
+
+  .industry-content h1 {
+    font-size: clamp(3.3rem, 7vw, 7rem);
+  }
+
+  .industry-answer {
+    padding-block: 2rem;
+  }
+
+  .industry-answer .shell {
+    display: grid;
+    grid-template-columns: 12rem 1fr;
+    gap: 2rem;
+  }
+
+  .industry-answer .eyebrow {
+    margin: 0;
+  }
+
+  .industry-answer p:last-child {
+    max-width: 60rem;
+    margin: 0;
+    font-family: var(--serif);
+    font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+    line-height: 1.4;
+  }
+
+  .priority-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1px;
+    border: 1px solid var(--line-light);
+    background: var(--line-light);
+  }
+
+  .priority-grid article {
+    min-height: 16rem;
+    padding: 2rem;
+    background: var(--paper);
+  }
+
+  .priority-grid span {
+    display: block;
+    margin-bottom: 3.5rem;
+    color: var(--gold-deep);
+    font-size: 0.68rem;
+    font-weight: 800;
+  }
+
+  .priority-grid h3 {
+    font-size: 1.45rem;
+  }
+
+  .related-layout,
+  .faq-layout {
+    display: grid;
+    grid-template-columns: minmax(16rem, 0.4fr) minmax(0, 0.6fr);
+    gap: clamp(3rem, 8vw, 8rem);
+  }
+
+  .related-ledger {
+    border-top: 1px solid var(--line-light);
+  }
+
+  .related-ledger a {
+    display: grid;
+    grid-template-columns: 3rem 1fr 2rem;
+    gap: 1rem;
+    padding: 1.2rem 0;
+    border-bottom: 1px solid var(--line-light);
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .related-ledger span {
+    color: var(--gold-deep);
+    font-size: 0.68rem;
+    font-weight: 800;
+  }
+
+  .related-ledger strong {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    font-weight: 500;
+  }
+
+  @media (max-width: 900px) {
+    .priority-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 720px) {
+    .industry-answer .shell,
+    .priority-grid,
+    .related-layout,
+    .faq-layout {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

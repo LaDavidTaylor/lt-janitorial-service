@@ -1,0 +1,45 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import InnerHero from "../../components/InnerHero.astro";
+import CTASection from "../../components/CTASection.astro";
+import { services } from "../../data/services";
+
+const groups = [...new Set(services.map((service) => service.category))];
+---
+
+<BaseLayout
+  title="Commercial Cleaning Services"
+  description="Explore recurring janitorial service, floor care, warehouse, office, medical, restaurant, and post construction cleaning across Dallas and East DFW."
+  canonicalPath="/services"
+>
+  <InnerHero
+    eyebrow="Complete service catalog"
+    title="Commercial cleaning, organized around the work."
+    intro="Every service has its own scope, use case, process, and questions. Explore the complete LT Janitorial catalog without one paragraph being stretched across thirty different needs."
+    image="/images/generated/commercial-cleaning-hero.webp"
+    imageAlt="Refined commercial facility interior with polished surfaces"
+  />
+
+  {groups.map((group, groupIndex) => (
+    <section class:list={["section", groupIndex % 2 === 0 ? "section-light" : "section-paper"]}>
+      <div class="shell">
+        <div class="section-intro">
+          <div><p class="eyebrow">Service group {String(groupIndex + 1).padStart(2, "0")}</p><h2>{group}</h2></div>
+          <p>{services.find((service) => service.category === group)?.serviceContext}</p>
+        </div>
+        <div class="card-grid">
+          {services.filter((service) => service.category === group).map((service, index) => (
+            <article class="editorial-card">
+              <span class="card-index">{String(index + 1).padStart(2, "0")} / {service.kind}</span>
+              <h3>{service.name}</h3>
+              <p>{service.hero.lede}</p>
+              <a class="text-link" href={`/services/${service.slug}`}>Read the complete scope <span aria-hidden="true">↗</span></a>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <CTASection title="Find the right scope for the facility." />
+</BaseLayout>

@@ -1,0 +1,137 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import InnerHero from "../components/InnerHero.astro";
+import CTASection from "../components/CTASection.astro";
+import { business } from "../data/business";
+
+const reviewThemes = [
+  { facility: "Hospital", focus: "Night service and facility cleaning", detail: "A public customer review describes LT Janitorial’s work during a hospital night shift." },
+  { facility: "Animal hospital", focus: "Specialized facility cleaning", detail: "Public feedback and the owner response identify work completed for an animal care environment." },
+  { facility: "Restaurants", focus: "Recurring deep cleaning", detail: "Reviews reference Dallas restaurant work and monthly service for restaurant locations in McKinney and Frisco." },
+  { facility: "Commercial offices", focus: "Janitorial and floor care", detail: "Office feedback identifies general janitorial service along with strip and wax floor work." },
+  { facility: "Retail", focus: "Space restoration", detail: "A public review describes cleaning that helped restore the presentation of a retail space." },
+  { facility: "Commercial projects", focus: "Responsiveness and crew service", detail: "Several reviewers emphasize communication, scheduling, and the overall service experience." },
+];
+---
+
+<BaseLayout
+  title="Commercial Cleaning Reviews and Results"
+  description="Explore the facility types, services, and outcomes reflected in LT Janitorial’s current public Google reviews."
+  canonicalPath="/reviews"
+>
+  <InnerHero
+    eyebrow="Public customer record"
+    title="The strongest proof comes from the facilities already served."
+    intro="LT Janitorial’s current Google profile shows a 5.0 rating from 12 reviews. The summaries below organize the service themes, while Google remains the source for the complete customer wording."
+    image="/images/generated/restaurant-cleaning-hero.webp"
+    imageAlt="Commercial restaurant dining room prepared for guests"
+    primaryHref={business.googleProfile}
+    primaryLabel="Read reviews on Google"
+    secondaryHref="/quote"
+    secondaryLabel="Request a quote"
+  />
+
+  <div class="image-disclosure-bar"><p class="shell">The hero image is illustrative and does not show a client facility or completed LT Janitorial project.</p></div>
+
+  <section class="section section-light">
+    <div class="shell">
+      <div class="section-intro">
+        <div><p class="eyebrow">Review themes</p><h2>Real environments. Different cleaning demands.</h2></div>
+        <p>These summaries point back to the public Google record. Visit the profile to read the complete customer wording and see the latest rating.</p>
+      </div>
+      <div class="review-grid">
+        {reviewThemes.map((theme, index) => (
+          <article>
+            <span>{String(index + 1).padStart(2, "0")}</span>
+            <p class="review-facility">{theme.facility}</p>
+            <h3>{theme.focus}</h3>
+            <p>{theme.detail}</p>
+          </article>
+        ))}
+      </div>
+      <p class="review-source">Ratings and review counts can change. Visit the <a href={business.googleProfile} target="_blank" rel="noreferrer">current Google profile</a> for the latest public record.</p>
+    </div>
+  </section>
+
+  <section class="section section-dark review-principle">
+    <div class="shell">
+      <p class="eyebrow">Proof that stays connected to the source</p>
+      <h2>Every result should remain traceable to a real facility experience.</h2>
+      <p>Direct review excerpts, project photographs, and case studies can be added as LT Janitorial gathers permission. Until then, the public Google profile remains the source of record.</p>
+    </div>
+  </section>
+
+  <CTASection title="Make the next result begin with a clear scope." />
+</BaseLayout>
+
+<style>
+  .review-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--line-light);
+    border: 1px solid var(--line-light);
+  }
+
+  .image-disclosure-bar {
+    padding-block: 0.7rem;
+    border-top: 1px solid var(--line-dark);
+    border-bottom: 1px solid var(--line-dark);
+    background: var(--ink-soft);
+  }
+
+  .image-disclosure-bar p {
+    margin-block: 0;
+    color: var(--muted-dark);
+    font-size: 0.78rem;
+  }
+
+  .review-grid article {
+    min-height: 22rem;
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+    background: var(--paper);
+  }
+
+  .review-grid span {
+    display: block;
+    margin-bottom: 3.5rem;
+    color: var(--gold-deep);
+    font-size: 0.68rem;
+    font-weight: 800;
+  }
+
+  .review-facility {
+    color: var(--gold-deep);
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .review-grid article > p:last-child,
+  .review-source {
+    color: var(--muted-light);
+  }
+
+  .review-source {
+    margin-top: 2rem;
+    font-size: 0.82rem;
+  }
+
+  .review-principle .shell {
+    max-width: 68rem;
+    text-align: center;
+  }
+
+  .review-principle p:last-child {
+    max-width: 48rem;
+    margin-inline: auto;
+    color: var(--muted-dark);
+  }
+
+  @media (max-width: 850px) {
+    .review-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

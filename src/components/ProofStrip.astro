@@ -1,0 +1,72 @@
+---
+const items = [
+  { value: "3", label: "Core North Texas counties" },
+  { value: "2020", label: "Company founded" },
+  { value: "5.0", label: "Current Google rating" },
+  { value: "12", label: "Current public Google reviews" },
+];
+---
+
+<section class="proof-strip" aria-label="Business facts">
+  <div class="shell proof-grid">
+    {items.map((item) => (
+      <div>
+        <strong>{item.value}</strong>
+        <span>{item.label}</span>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .proof-strip {
+    border-top: 1px solid var(--line-dark);
+    border-bottom: 1px solid var(--line-dark);
+    background: var(--ink-soft);
+  }
+
+  .proof-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .proof-grid > div {
+    min-height: 8.5rem;
+    display: grid;
+    align-content: center;
+    gap: 0.2rem;
+    padding: 1.25rem clamp(1rem, 3vw, 2.5rem);
+    border-right: 1px solid var(--line-dark);
+  }
+
+  .proof-grid > div:first-child {
+    border-left: 1px solid var(--line-dark);
+  }
+
+  strong {
+    color: var(--gold-light);
+    font-family: var(--serif);
+    font-size: clamp(1.9rem, 4vw, 3.2rem);
+    font-weight: 500;
+    line-height: 1;
+  }
+
+  span {
+    color: var(--muted-dark);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 720px) {
+    .proof-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .proof-grid > div {
+      min-height: 7rem;
+      border-bottom: 1px solid var(--line-dark);
+    }
+  }
+</style>

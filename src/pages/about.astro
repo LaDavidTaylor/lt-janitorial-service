@@ -1,0 +1,143 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import InnerHero from "../components/InnerHero.astro";
+import CTASection from "../components/CTASection.astro";
+import { business } from "../data/business";
+---
+
+<BaseLayout
+  title="About LaDavid Taylor and LT Janitorial"
+  description="Meet LT Janitorial Service, LLC, a veteran owned commercial cleaning company founded in 2020 and serving Dallas, Collin, and Rockwall counties."
+  canonicalPath="/about"
+>
+  <InnerHero
+    eyebrow="Service with a backbone"
+    title="Commercial cleaning led by discipline, pride, and visible care."
+    intro="LaDavid Taylor Sr. founded LT Janitorial Service, LLC in 2020 to bring disciplined commercial cleaning, floor care, and project support to North Texas facilities."
+    image="/images/generated/commercial-cleaning-hero.webp"
+    imageAlt="Refined North Texas commercial building interior"
+    secondaryHref="/reviews"
+    secondaryLabel="Review public results"
+  />
+
+  <section class="section section-light">
+    <div class="shell story-grid">
+      <div class="story-title">
+        <p class="eyebrow">The company</p>
+        <h2>LT Janitorial is built for the spaces where business happens.</h2>
+      </div>
+      <div class="story-copy prose">
+        <p>LT Janitorial focuses on commercial facilities, their floors, and the project work that helps those buildings stay ready for employees, customers, patients, vendors, and operating teams.</p>
+        <p>The public service record spans offices, restaurants, warehouses, medical environments, retail spaces, animal care facilities, construction closeouts, and commercial floors. That range does not turn every building into the same checklist. It gives the planning conversation a clearer starting point.</p>
+        <p>LaDavid describes the business as veteran owned and centered on discipline, pride, and a finish people can see. That idea carries through the service details and the direct path to a facility walk through.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-dark">
+    <div class="shell values-grid">
+      <article><span>01</span><h3>See the facility</h3><p>Rooms, surfaces, traffic, access, and operating hours should shape the scope before the first service date.</p></article>
+      <article><span>02</span><h3>Name the work</h3><p>Routine cleaning, floor maintenance, and project cleaning deserve clear definitions instead of vague promises.</p></article>
+      <article><span>03</span><h3>Respect the operation</h3><p>Commercial cleaning succeeds when service windows and methods fit the way the facility actually runs.</p></article>
+      <article><span>04</span><h3>Protect the standard</h3><p>Recurring service and preventive maintenance help the building hold its condition beyond a single clean.</p></article>
+    </div>
+  </section>
+
+  <section class="section section-paper">
+    <div class="shell facts-grid">
+      <div><p class="eyebrow">Business facts</p><h2>A focused commercial service company.</h2></div>
+      <dl>
+        <div><dt>Business</dt><dd>{business.name}</dd></div>
+        <div><dt>Founder</dt><dd>{business.founder}</dd></div>
+        <div><dt>Founded</dt><dd>{business.founded}</dd></div>
+        <div><dt>Ownership identity</dt><dd>Veteran owned</dd></div>
+        <div><dt>Primary territory</dt><dd>Dallas, Collin, and Rockwall counties</dd></div>
+        <div><dt>Primary work</dt><dd>Commercial cleaning, floor care, and project cleaning</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <CTASection title="Let the next conversation begin inside the facility." />
+</BaseLayout>
+
+<style>
+  .story-grid,
+  .facts-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.75fr) minmax(20rem, 0.5fr);
+    gap: clamp(3rem, 8vw, 8rem);
+  }
+
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1px;
+    border: 1px solid var(--line-dark);
+    background: var(--line-dark);
+  }
+
+  .values-grid article {
+    min-height: 22rem;
+    padding: 2rem;
+    background: var(--ink-soft);
+  }
+
+  .values-grid span {
+    display: block;
+    margin-bottom: 6rem;
+    color: var(--gold-mid);
+    font-size: 0.7rem;
+    font-weight: 800;
+  }
+
+  .values-grid p {
+    color: var(--muted-dark);
+  }
+
+  .facts-grid dl {
+    margin: 0;
+    border-top: 1px solid var(--line-light);
+  }
+
+  .facts-grid dl div {
+    display: grid;
+    grid-template-columns: 9rem 1fr;
+    gap: 1.5rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--line-light);
+  }
+
+  .facts-grid dt {
+    color: var(--gold-deep);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .facts-grid dd {
+    margin: 0;
+  }
+
+  @media (max-width: 900px) {
+    .story-grid,
+    .facts-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .values-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 620px) {
+    .values-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .facts-grid dl div {
+      grid-template-columns: 1fr;
+      gap: 0.25rem;
+    }
+  }
+</style>

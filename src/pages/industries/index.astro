@@ -1,0 +1,96 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import InnerHero from "../../components/InnerHero.astro";
+import CTASection from "../../components/CTASection.astro";
+import { industries } from "../../data/industries";
+import { getImageAlt } from "../../data/images";
+---
+
+<BaseLayout
+  title="Commercial Facilities and Industries"
+  description="Explore cleaning priorities for offices, warehouses, medical facilities, restaurants, retail, schools, industrial buildings, and construction closeouts."
+  canonicalPath="/industries"
+>
+  <InnerHero
+    eyebrow="Facilities shape the scope"
+    title="Different buildings collect different work."
+    intro="A useful cleaning plan reflects traffic, floor materials, public visibility, operating hours, waste, access, and specialized spaces. Explore how those priorities change by facility."
+    image="/images/generated/warehouse-cleaning-hero.webp"
+    imageAlt="Clean organized commercial warehouse corridor"
+    secondaryHref="/services"
+    secondaryLabel="View services"
+  />
+
+  <section class="section section-light">
+    <div class="shell">
+      <div class="card-grid industry-grid">
+        {industries.map((industry, index) => (
+          <article class="industry-card">
+            <div class="industry-image"><img src={industry.image.src} alt={getImageAlt(industry.image.src)} width="900" height="700" loading="lazy" style={`object-position:${industry.image.focalPoint}`} /></div>
+            <div class="industry-copy">
+              <span class="card-index">{String(index + 1).padStart(2, "0")} / Facility profile</span>
+              <h2>{industry.name}</h2>
+              <p>{industry.hero.lede}</p>
+              <a class="text-link" href={`/industries/${industry.slug}`}>Explore this facility type <span aria-hidden="true">↗</span></a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTASection title="Bring the building into the conversation." />
+</BaseLayout>
+
+<style>
+  .industry-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border: 0;
+    background: transparent;
+    gap: 1.5rem;
+  }
+
+  .industry-card {
+    background: var(--paper);
+    border: 1px solid var(--line-light);
+  }
+
+  .industry-image {
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+  }
+
+  .industry-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .industry-copy {
+    padding: clamp(1.5rem, 4vw, 3rem);
+  }
+
+  .industry-copy .card-index {
+    display: block;
+    margin-bottom: 2.5rem;
+    color: var(--gold-deep);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+  }
+
+  .industry-copy h2 {
+    font-size: clamp(2rem, 4vw, 3.7rem);
+  }
+
+  .industry-copy p {
+    color: var(--muted-light);
+  }
+
+  @media (max-width: 760px) {
+    .industry-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

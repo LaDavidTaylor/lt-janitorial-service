@@ -1,0 +1,49 @@
+{
+  "framework": "astro",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/blog", "destination": "/resources", "permanent": true },
+    { "source": "/free-consultation", "destination": "/quote", "permanent": true },
+    { "source": "/privacy-policy", "destination": "/privacy", "permanent": true },
+    { "source": "/post/deep-cleaning-vs-routine-cleaning-what-your-medical-facility-needs-for-hipaa-compliance", "destination": "/resources/medical-facility-cleaning-requirements", "permanent": true },
+    { "source": "/post/spotlight-on-post-construction-cleaning-ensuring-a-safe-spotless-space-after-your-build-or-remode", "destination": "/resources/post-construction-cleaning-checklist", "permanent": true },
+    { "source": "/post/transform-your-workspace-with-professional-cleaning-dallas-services", "destination": "/services/office-cleaning", "permanent": true },
+    { "source": "/service-page/annual-floor-restoration", "destination": "/services/annual-floor-restoration", "permanent": true },
+    { "source": "/service-page/daily-deep-cleaning", "destination": "/services/daily-deep-cleaning", "permanent": true },
+    { "source": "/service-page/debris-and-dust-removal", "destination": "/services/debris-and-dust-removal", "permanent": true },
+    { "source": "/service-page/dining-area-sanitizing", "destination": "/services/dining-area-sanitizing", "permanent": true },
+    { "source": "/service-page/disinfection-sterilization", "destination": "/services/disinfection-and-sterilization", "permanent": true },
+    { "source": "/service-page/final-site-cleaning", "destination": "/services/final-site-cleaning", "permanent": true },
+    { "source": "/service-page/floor-burnishing", "destination": "/services/floor-burnishing", "permanent": true },
+    { "source": "/service-page/high-dust-area-cleaning", "destination": "/services/high-dust-area-cleaning", "permanent": true },
+    { "source": "/service-page/industrial-floor-sweeping", "destination": "/services/industrial-floor-sweeping", "permanent": true },
+    { "source": "/service-page/kitchen-deep-cleaning", "destination": "/services/kitchen-deep-cleaning", "permanent": true },
+    { "source": "/service-page/loading-dock-cleaning", "destination": "/services/loading-dock-cleaning", "permanent": true },
+    { "source": "/service-page/medical-facility-sanitation", "destination": "/services/medical-facility-sanitation", "permanent": true },
+    { "source": "/service-page/one-and-done-one-time-cleaning-service", "destination": "/services/one-and-done-cleaning", "permanent": true },
+    { "source": "/service-page/one-time-project-cleaning", "destination": "/services/one-time-project-cleaning", "permanent": true },
+    { "source": "/service-page/patient-room-sanitizing", "destination": "/services/patient-room-sanitizing", "permanent": true },
+    { "source": "/service-page/post-renovation-cleanup", "destination": "/services/post-renovation-cleanup", "permanent": true },
+    { "source": "/service-page/preventive-floor-care", "destination": "/services/preventive-floor-care", "permanent": true },
+    { "source": "/service-page/restaurant-surface-cleaning", "destination": "/services/restaurant-surface-cleaning", "permanent": true },
+    { "source": "/service-page/restroom-cleaning", "destination": "/services/restroom-cleaning", "permanent": true },
+    { "source": "/service-page/routine-office-cleaning", "destination": "/services/routine-office-cleaning", "permanent": true },
+    { "source": "/service-page/strip-wax", "destination": "/services/strip-and-wax", "permanent": true },
+    { "source": "/service-page/trash-removal-services", "destination": "/services/trash-removal-services", "permanent": true },
+    { "source": "/service-page/warehouse-cleaning-services", "destination": "/services/warehouse-cleaning-services", "permanent": true },
+    { "source": "/service-page/workspace-sanitization", "destination": "/services/workspace-sanitization", "permanent": true }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "Content-Security-Policy", "value": "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'self'; form-action 'self' mailto:; upgrade-insecure-requests" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" }
+      ]
+    }
+  ]
+}

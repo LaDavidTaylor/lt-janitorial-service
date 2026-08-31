@@ -1,0 +1,44 @@
+---
+interface Props {
+  compact?: boolean;
+  priority?: boolean;
+}
+
+const { compact = false, priority = false } = Astro.props;
+---
+
+<a class:list={["brand-logo", { compact }]} href="/" aria-label="LT Janitorial Service, LLC home">
+  <img
+    src="/brand/lt-janitorial-logo.png"
+    alt="LT Janitorial Service, LLC"
+    width="1758"
+    height="444"
+    loading={priority ? "eager" : "lazy"}
+    fetchpriority={priority ? "high" : "auto"}
+    decoding="async"
+  />
+</a>
+
+<style>
+  .brand-logo {
+    display: block;
+    width: clamp(12.5rem, 18vw, 15.5rem);
+    line-height: 0;
+  }
+
+  .brand-logo.compact {
+    width: 12rem;
+  }
+
+  .brand-logo img {
+    width: 100%;
+    height: auto;
+  }
+
+  @media (max-width: 720px) {
+    .brand-logo,
+    .brand-logo.compact {
+      width: 11.25rem;
+    }
+  }
+</style>

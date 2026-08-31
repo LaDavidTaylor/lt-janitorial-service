@@ -1,0 +1,50 @@
+---
+import BrandLogo from "./BrandLogo.astro";
+import { business } from "../data/business";
+---
+
+<footer class="site-footer">
+  <div class="shell footer-grid">
+    <div class="footer-brand">
+      <BrandLogo compact />
+      <p>{business.description}</p>
+      <p class="footer-note">Founded in {business.founded}. Serving commercial facilities across three North Texas counties.</p>
+    </div>
+
+    <div>
+      <p class="footer-heading">Explore</p>
+      <a href="/services">Services</a>
+      <a href="/industries">Industries</a>
+      <a href="/service-areas">Service areas</a>
+      <a href="/programs">Cleaning programs</a>
+      <a href="/resources">Facility resources</a>
+    </div>
+
+    <div>
+      <p class="footer-heading">Company</p>
+      <a href="/about">About LT</a>
+      <a href="/reviews">Reviews and results</a>
+      <a href="/faq">Frequently asked questions</a>
+      <a href="/contact">Contact</a>
+      <a href="/quote">Request a quote</a>
+    </div>
+
+    <div>
+      <p class="footer-heading">Start a conversation</p>
+      <a href={business.phoneHref}>{business.phoneDisplay}</a>
+      <a href={business.emailHref}>{business.email}</a>
+      <a href={business.calendly} target="_blank" rel="noreferrer">Schedule a facility walk through</a>
+      <p class="footer-service-area">Dallas County<br />Collin County<br />Rockwall County</p>
+    </div>
+  </div>
+
+  <p class="shell footer-disclosure">Website imagery is illustrative and does not depict LT Janitorial employees, client facilities, or completed projects.</p>
+
+  <div class="shell footer-bottom">
+    <p>© {new Date().getFullYear()} {business.name}. All rights reserved.</p>
+    <div>
+      <a href="/privacy">Privacy</a>
+      <a href="/accessibility">Accessibility</a>
+    </div>
+  </div>
+</footer>

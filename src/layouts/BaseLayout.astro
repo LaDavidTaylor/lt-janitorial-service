@@ -1,0 +1,95 @@
+---
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { business } from "../data/business";
+import { getImageAlt } from "../data/images";
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalPath?: string;
+  image?: string;
+  imageAlt?: string;
+  noindex?: boolean;
+  schemas?: Record<string, unknown>[];
+  bodyClass?: string;
+}
+
+const {
+  title,
+  description,
+  canonicalPath = Astro.url.pathname,
+  image = "/images/generated/commercial-cleaning-hero.webp",
+  imageAlt = "Polished commercial facility prepared for daily operations",
+  noindex = false,
+  schemas = [],
+  bodyClass = "",
+} = Astro.props;
+
+const site = Astro.site ?? new URL(business.previewUrl);
+const canonical = new URL(canonicalPath, site);
+const socialImage = new URL(image, site);
+const fullTitle = title.includes(business.shortName) ? title : `${title} | ${business.shortName}`;
+
+const baseSchemas: Record<string, unknown>[] = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${site.href}#website`,
+    name: business.name,
+    url: site.href,
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": `${site.href}#organization`,
+    name: business.name,
+    url: site.href,
+    logo: new URL("/brand/lt-janitorial-logo.png", site).href,
+    telephone: "+14695977230",
+    email: business.email,
+    foundingDate: business.founded,
+    description: business.description,
+    areaServed: business.counties.map((name) => ({ "@type": "AdministrativeArea", name })),
+    sameAs: [business.googleProfile, business.facebook, business.instagram],
+  },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="theme-color" content="#090907" />
+    <meta name="description" content={description} />
+    <meta name="robots" content={noindex ? "noindex,nofollow" : "index,follow,max-image-preview:large"} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/brand/lt-janitorial-favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/brand/lt-janitorial-emblem.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={business.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={socialImage} />
+    <meta property="og:image:alt" content={getImageAlt(image, imageAlt)} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImage} />
+    <title>{fullTitle}</title>
+    {[...baseSchemas, ...schemas].map((schema) => <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />)}
+  </head>
+  <body class={bodyClass}>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <Header />
+    <main id="main-content"><slot /></main>
+    <Footer />
+    <nav class="mobile-action-bar" aria-label="Quick actions">
+      <a href={business.phoneHref}>Call now</a>
+      <a href="/quote">Request quote</a>
+    </nav>
+  </body>
+</html>

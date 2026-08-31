@@ -1,0 +1,29 @@
+---
+import { business } from "../data/business";
+
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  copy?: string;
+}
+
+const {
+  eyebrow = "Build a cleaner facility plan",
+  title = "Let the scope fit the building.",
+  copy = "Start with a conversation about your facility, service window, traffic, floors, and priorities. LT Janitorial will use those details to prepare the next step.",
+} = Astro.props;
+---
+
+<section class="cta-section section-dark">
+  <div class="shell cta-layout">
+    <div>
+      <p class="eyebrow">{eyebrow}</p>
+      <h2>{title}</h2>
+      <p>{copy}</p>
+    </div>
+    <div class="cta-actions">
+      <a class="button button-gold" href="/quote">Request a facility quote</a>
+      <a class="text-link light" href={business.phoneHref}>Call {business.phoneDisplay}<span aria-hidden="true">↗</span></a>
+    </div>
+  </div>
+</section>

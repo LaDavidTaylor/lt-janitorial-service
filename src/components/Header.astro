@@ -1,0 +1,58 @@
+---
+import BrandLogo from "./BrandLogo.astro";
+import { business, primaryNav } from "../data/business";
+---
+
+<header class="site-header" data-header>
+  <div class="header-inner shell">
+    <BrandLogo priority />
+
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation" data-menu-toggle>
+      <span class="sr-only">Open navigation</span>
+      <span></span><span></span>
+    </button>
+
+    <nav id="primary-navigation" class="primary-nav" aria-label="Primary navigation" data-menu>
+      {primaryNav.map((item) => <a href={item.href}>{item.label}</a>)}
+      <a href="/faq">FAQ</a>
+      <a class="nav-call" href={business.phoneHref}>Call {business.phoneDisplay}</a>
+      <a class="button button-gold nav-quote" href="/quote">Request a quote</a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const button = document.querySelector<HTMLElement>("[data-menu-toggle]");
+  const menu = document.querySelector<HTMLElement>("[data-menu]");
+
+  if (button && menu) {
+    const label = button.querySelector<HTMLElement>(".sr-only");
+    const setOpen = (isOpen: boolean) => {
+      button.setAttribute("aria-expanded", String(isOpen));
+      menu.toggleAttribute("data-open", isOpen);
+      document.body.toggleAttribute("data-menu-open", isOpen);
+      if (label) label.textContent = isOpen ? "Close navigation" : "Open navigation";
+    };
+
+    const close = () => {
+      setOpen(false);
+    };
+
+    button.addEventListener("click", () => {
+      const willOpen = button.getAttribute("aria-expanded") !== "true";
+      setOpen(willOpen);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && button.getAttribute("aria-expanded") === "true") {
+        close();
+        button.focus();
+      }
+    });
+
+    menu.querySelectorAll("a").forEach((link) => link.addEventListener("click", close));
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 980) close();
+    });
+  }
+</script>

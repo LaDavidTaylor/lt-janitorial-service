@@ -1,0 +1,155 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import InnerHero from "../components/InnerHero.astro";
+import CTASection from "../components/CTASection.astro";
+
+const programs = [
+  {
+    name: "Silver",
+    label: "Preventive maintenance",
+    summary: "A planned floor care program without recurring daily cleaning.",
+    fit: "Facilities that manage routine janitorial work separately but need a defined annual floor maintenance cycle.",
+    includes: ["Annual floor care planning", "Surface and condition review", "Project scheduling around facility access"],
+  },
+  {
+    name: "Gold",
+    label: "Daily excellence",
+    summary: "Recurring deep cleaning with floor projects kept flexible and separate.",
+    fit: "Facilities that need consistent recurring janitorial attention and want to authorize restorative floor work as needed.",
+    includes: ["Recurring cleaning scope", "Priority room and touchpoint planning", "Separate floor maintenance options"],
+  },
+  {
+    name: "Platinum",
+    label: "Total care",
+    summary: "Recurring deep cleaning and a complete floor maintenance plan in one coordinated program.",
+    fit: "Facilities that want cleaning and floor care considered together during the planning conversation.",
+    includes: ["Recurring facility cleaning", "Planned floor maintenance", "One coordinated facility scope"],
+  },
+];
+---
+
+<BaseLayout
+  title="Commercial Cleaning Programs"
+  description="Compare LT Janitorial Silver, Gold, and Platinum programs for preventive floor care, recurring cleaning, and coordinated facility maintenance."
+  canonicalPath="/programs"
+>
+  <InnerHero
+    eyebrow="Three ways to organize the work"
+    title="A program is a framework, not a shortcut around the walk through."
+    intro="LT Janitorial currently presents Silver, Gold, and Platinum options. The facility conversation determines which structure fits and what the final scope includes."
+    image="/images/generated/floor-care-hero.webp"
+    imageAlt="Refined commercial floor maintained to an even finish"
+    secondaryHref="/services"
+    secondaryLabel="Review every service"
+  />
+
+  <section class="section section-light">
+    <div class="shell program-grid">
+      {programs.map((program, index) => (
+        <article class="program-card">
+          <div class="program-top"><span>0{index + 1}</span><p>{program.label}</p></div>
+          <h2>{program.name}</h2>
+          <p class="program-summary">{program.summary}</p>
+          <div class="program-detail"><h3>Designed for</h3><p>{program.fit}</p></div>
+          <ul>{program.includes.map((item) => <li>{item}</li>)}</ul>
+          <a class="button button-dark" href={`/quote?program=${program.name.toLowerCase()}`}>Discuss {program.name}</a>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section section-paper">
+    <div class="shell program-note">
+      <div><p class="eyebrow">Before choosing a tier</p><h2>Confirm the rooms, frequency, floors, and service window.</h2></div>
+      <div><p>The program names help organize the conversation, but they do not replace a written facility scope. Pricing structure, service frequency, floor cycles, and included tasks should be confirmed after the building has been reviewed.</p><a class="text-link" href="/resources/commercial-cleaning-cost-factors-dallas">Read the commercial quote guide <span aria-hidden="true">↗</span></a></div>
+    </div>
+  </section>
+
+  <CTASection title="Build the program from the building outward." />
+</BaseLayout>
+
+<style>
+  .program-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--line-light);
+    border: 1px solid var(--line-light);
+  }
+
+  .program-card {
+    display: flex;
+    flex-direction: column;
+    padding: clamp(1.5rem, 4vw, 3rem);
+    background: var(--paper);
+  }
+
+  .program-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 6rem;
+    color: var(--gold-deep);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .program-card h2 {
+    font-size: clamp(3rem, 6vw, 5.5rem);
+  }
+
+  .program-summary {
+    min-height: 5rem;
+    color: var(--muted-light);
+    font-size: 1.05rem;
+  }
+
+  .program-detail {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line-light);
+  }
+
+  .program-detail h3 {
+    font-size: 1.25rem;
+  }
+
+  .program-detail p,
+  .program-card li {
+    color: var(--muted-light);
+    font-size: 0.92rem;
+  }
+
+  .program-card ul {
+    margin: 0 0 2rem;
+    padding-left: 1.1rem;
+  }
+
+  .program-card .button {
+    margin-top: auto;
+  }
+
+  .program-note {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(20rem, 0.5fr);
+    gap: clamp(3rem, 8vw, 8rem);
+  }
+
+  .program-note > div:last-child p {
+    color: var(--muted-light);
+    font-size: 1.08rem;
+  }
+
+  @media (max-width: 900px) {
+    .program-grid,
+    .program-note {
+      grid-template-columns: 1fr;
+    }
+
+    .program-summary {
+      min-height: 0;
+    }
+  }
+</style>

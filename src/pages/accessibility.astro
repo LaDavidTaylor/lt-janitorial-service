@@ -1,0 +1,57 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import InnerHero from "../components/InnerHero.astro";
+import { business } from "../data/business";
+---
+
+<BaseLayout
+  title="Accessibility"
+  description="Read the LT Janitorial website accessibility approach and contact the company if you encounter an access barrier."
+  canonicalPath="/accessibility"
+>
+  <InnerHero
+    eyebrow="Accessibility"
+    title="The website should work with the way people navigate."
+    intro="The build uses semantic structure, keyboard access, visible focus, useful image descriptions, responsive layouts, and reduced motion support."
+    image="/images/generated/office-cleaning-hero.webp"
+    imageAlt="Accessible commercial office environment with clear walkways"
+    primaryHref={business.emailHref}
+    primaryLabel="Report an access issue"
+    secondaryHref="/contact"
+    secondaryLabel="Contact options"
+  />
+
+  <section class="section section-light">
+    <div class="shell legal prose">
+      <p>LT Janitorial wants this website to provide a useful path to service information and contact options for as many visitors as practical.</p>
+      <h2>Measures in this build</h2>
+      <ul>
+        <li>Semantic headings and landmarks</li>
+        <li>Keyboard operable navigation and forms</li>
+        <li>Visible focus treatment</li>
+        <li>Useful alternatives for meaningful images</li>
+        <li>Responsive layouts beginning at 320 pixels</li>
+        <li>Support for reduced motion preferences</li>
+        <li>Direct phone and email alternatives to the quote planner</li>
+      </ul>
+      <h2>Report a barrier</h2>
+      <p>If something prevents you from reaching information or contacting the business, email <a href={business.emailHref}>{business.email}</a> or call <a href={business.phoneHref}>{business.phoneDisplay}</a>. Include the page and the problem you encountered.</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .legal {
+    max-width: 54rem;
+  }
+
+  .legal h2 {
+    margin-top: 4rem;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+  }
+
+  .legal li {
+    margin-bottom: 0.5rem;
+    color: var(--muted-light);
+  }
+</style>

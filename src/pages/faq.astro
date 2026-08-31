@@ -1,0 +1,89 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import InnerHero from "../components/InnerHero.astro";
+import FAQList from "../components/FAQList.astro";
+import CTASection from "../components/CTASection.astro";
+import { faqSchema } from "../lib/schema";
+
+const groups = [
+  {
+    name: "Service and facilities",
+    items: [
+      { question: "Does LT Janitorial provide residential cleaning?", answer: "LT Janitorial is focused on commercial facilities and does not currently advertise residential house cleaning." },
+      { question: "Which commercial facilities can LT Janitorial clean?", answer: "The current catalog names offices, warehouses, distribution centers, medical facilities, restaurants, retail spaces, schools, activity centers, manufacturing environments, and commercial construction or renovated spaces." },
+      { question: "Can LT Janitorial provide both recurring cleaning and floor care?", answer: "Yes. The current program structure includes recurring commercial cleaning, standalone preventive floor care, and a coordinated option that considers both." },
+      { question: "Does LT Janitorial offer one time cleaning projects?", answer: "Yes. One time project cleaning, final site cleaning, post renovation cleanup, debris and dust removal, annual floor restoration, and other periodic services appear in the current catalog." },
+    ],
+  },
+  {
+    name: "Quotes and scheduling",
+    items: [
+      { question: "What information helps prepare a commercial cleaning quote?", answer: "Share the facility type, city or ZIP code, approximate square footage, preferred frequency, service window, floor materials, priority rooms, desired start date, and any access considerations." },
+      { question: "Why is a facility walk through useful?", answer: "A walk through connects the square footage to actual rooms, surfaces, traffic, waste, floor condition, access, and operating needs. That produces a clearer scope than a number by itself." },
+      { question: "Can I schedule a walk through online?", answer: "Yes. LT Janitorial currently provides a Calendly link for facility walk through scheduling. You can also call or prepare an email quote request through this website." },
+      { question: "Does the website accept online payments or instant bookings?", answer: "No. The website starts a facility conversation and provides the current scheduling link. It does not collect payment or promise an instant confirmed service appointment." },
+    ],
+  },
+  {
+    name: "Coverage and business details",
+    items: [
+      { question: "Which counties does LT Janitorial serve?", answer: "LT Janitorial’s current website identifies Dallas County, Collin County, and Rockwall County as the core service territory." },
+      { question: "Can facilities outside the three core counties ask about service?", answer: "Yes. Share the full address and requested service. LT Janitorial can confirm whether current route capacity supports the facility." },
+      { question: "Is LT Janitorial veteran owned?", answer: "Yes. The current website, Facebook business page, and Google profile identify LT Janitorial as veteran owned." },
+      { question: "Can customers visit a public office?", answer: "LT Janitorial operates as a service area business and meets clients at their facilities. Call, email, or schedule a walk through to begin." },
+    ],
+  },
+  {
+    name: "Credentials and project requirements",
+    items: [
+      { question: "Can LT Janitorial provide current insurance documentation?", answer: "Ask for current proof of insurance during the proposal process so the required documentation can be confirmed before service begins." },
+      { question: "How are medical facility requirements handled?", answer: "Share privacy, product, access, infection control, and credential requirements during the facility review. Each requirement should be documented before service begins." },
+      { question: "Are 24 hour emergency services guaranteed?", answer: "No fixed emergency response time is advertised. Contact LT Janitorial to discuss current availability and the needs of the facility." },
+      { question: "How are VOSB or MBE certifications confirmed?", answer: "Procurement teams should request current certification documentation directly during the proposal process." },
+    ],
+  },
+];
+const allFaqs = groups.flatMap((group) => group.items);
+---
+
+<BaseLayout
+  title="Commercial Cleaning FAQ"
+  description="Answers about LT Janitorial services, facilities, coverage, quotes, floor care, scheduling, and current business claims."
+  canonicalPath="/faq"
+  schemas={[faqSchema(allFaqs)]}
+>
+  <InnerHero
+    eyebrow="Direct answers"
+    title="Get clear answers before the scope begins."
+    intro="Review services, scheduling, coverage, credentials, and the details that make a facility proposal more useful."
+    image="/images/generated/office-cleaning-hero.webp"
+    imageAlt="Clean commercial office prepared for staff and visitors"
+    secondaryHref="/contact"
+    secondaryLabel="Contact LT Janitorial"
+  />
+
+  {groups.map((group, index) => (
+    <section class:list={["section", index % 2 === 0 ? "section-light" : "section-paper"]}>
+      <div class="shell faq-group">
+        <div><p class="eyebrow">Question group {String(index + 1).padStart(2, "0")}</p><h2>{group.name}</h2></div>
+        <FAQList items={group.items} />
+      </div>
+    </section>
+  ))}
+
+  <CTASection title="Ask the question that belongs to your building." />
+</BaseLayout>
+
+<style>
+  .faq-group {
+    display: grid;
+    grid-template-columns: minmax(15rem, 0.35fr) minmax(0, 0.65fr);
+    gap: clamp(3rem, 8vw, 8rem);
+  }
+
+  @media (max-width: 800px) {
+    .faq-group {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

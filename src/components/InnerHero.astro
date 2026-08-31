@@ -1,0 +1,40 @@
+---
+import { getImageAlt } from "../data/images";
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  intro: string;
+  image: string;
+  imageAlt: string;
+  primaryHref?: string;
+  primaryLabel?: string;
+  secondaryHref?: string;
+  secondaryLabel?: string;
+}
+
+const {
+  eyebrow,
+  title,
+  intro,
+  image,
+  imageAlt,
+  primaryHref = "/quote",
+  primaryLabel = "Request a facility quote",
+  secondaryHref = "/services",
+  secondaryLabel = "Explore services",
+} = Astro.props;
+---
+
+<section class="inner-hero">
+  <div class="hero-media"><img src={image} alt={getImageAlt(image, imageAlt)} width="1600" height="1050" loading="eager" fetchpriority="high" /></div>
+  <div class="shell inner-hero-content">
+    <p class="eyebrow">{eyebrow}</p>
+    <h1>{title}</h1>
+    <p class="lede">{intro}</p>
+    <div class="hero-actions">
+      <a class="button button-gold" href={primaryHref}>{primaryLabel}</a>
+      <a class="button button-ghost" href={secondaryHref}>{secondaryLabel}</a>
+    </div>
+  </div>
+</section>

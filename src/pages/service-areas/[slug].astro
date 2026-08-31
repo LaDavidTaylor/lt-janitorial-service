@@ -1,0 +1,290 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import FAQList from "../../components/FAQList.astro";
+import CTASection from "../../components/CTASection.astro";
+import { business } from "../../data/business";
+import { getImageAlt } from "../../data/images";
+import { locations, type LocationPage } from "../../data/locations";
+import { breadcrumbSchema, faqSchema, serviceSchema } from "../../lib/schema";
+
+export function getStaticPaths() {
+  return locations.map((location) => ({ params: { slug: location.slug }, props: { location } }));
+}
+
+interface Props {
+  location: LocationPage;
+}
+
+const { location } = Astro.props;
+const requiresConfirmation = location.launchStatus === "owner_confirmation_required";
+const secondaryLabel = location.hero.secondaryCta.toLowerCase();
+const secondaryHref = secondaryLabel.includes("call")
+  ? business.phoneHref
+  : secondaryLabel.includes("explore")
+    ? "/services"
+    : secondaryLabel.includes("view")
+      ? "/service-areas"
+      : "/quote";
+const schemas = [
+  breadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "Service areas", path: "/service-areas" },
+    { name: location.name, path: `/service-areas/${location.slug}` },
+  ]),
+  serviceSchema(`Commercial cleaning in ${location.name}`, location.schemaDescription, [location.name], `/service-areas/${location.slug}`),
+  faqSchema(location.faqs),
+];
+---
+
+<BaseLayout
+  title={location.seo.title}
+  description={location.seo.description}
+  canonicalPath={`/service-areas/${location.slug}`}
+  image={location.image.src}
+  imageAlt={getImageAlt(location.image.src)}
+  noindex={requiresConfirmation}
+  schemas={schemas}
+>
+  <Breadcrumbs items={[{ label: "Service areas", href: "/service-areas" }, { label: location.name }]} />
+
+  <section class="location-hero">
+    <div class="location-media"><img src={location.image.src} alt={getImageAlt(location.image.src)} width="1672" height="941" loading="eager" fetchpriority="high" style={`object-position:${location.image.focalPoint}`} /></div>
+    <div class="shell location-content">
+      <p class="eyebrow">{location.hero.eyebrow}</p>
+      <h1>{location.hero.title}</h1>
+      <p class="lede">{location.hero.lede}</p>
+      {requiresConfirmation && <p class="confirmation-note">Please confirm the facility address and current route availability before planning service in this market.</p>}
+      <div class="hero-actions">
+        <a class="button button-gold" href="/quote">{location.hero.primaryCta}</a>
+        <a class="button button-ghost" href={secondaryHref}>{location.hero.secondaryCta}</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="location-ledger section-light">
+    <div class="shell">
+      <span>{location.type === "county" ? "County coverage" : "City coverage"}</span>
+      <strong>{location.name}</strong>
+      <small>{location.county}</small>
+    </div>
+  </section>
+
+  <section class="section section-paper">
+    <div class="shell content-layout">
+      <div class="prose">
+        <p>{location.overview[0]}</p>
+        <p>{location.overview[1]}</p>
+        <h2>What shapes commercial cleaning in {location.name}</h2>
+        <p>{location.localContext}</p>
+      </div>
+      <aside class="detail-aside">
+        <p class="eyebrow">Coverage profile</p>
+        <h3>{location.name}</h3>
+        <p>{requiresConfirmation ? "Current route availability needs direct confirmation." : "This location is part of the current service territory."}</p>
+        <a class="button button-dark" href="/quote">Confirm facility availability</a>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section-light">
+    <div class="shell">
+      <div class="section-intro"><div><p class="eyebrow">Local facility priorities</p><h2>The conditions that should enter the scope.</h2></div><p>These priorities reflect the local commercial mix and the building types a cleaning plan may need to support.</p></div>
+      <div class="priority-grid">
+        {location.facilityPriorities.map((priority, index) => <article><span>{String(index + 1).padStart(2, "0")}</span><h3>{priority}</h3></article>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-dark">
+    <div class="shell">
+      <div class="section-intro"><div><p class="eyebrow">Service focus</p><h2>Work that matches the local facility mix.</h2></div><p>Each location emphasizes a different group of services based on the offices, industry, retail, medical, restaurant, logistics, or development activity found there.</p></div>
+      <div class="focus-grid">
+        {location.serviceFocus.map((focus, index) => (
+          <article><span>{String(index + 1).padStart(2, "0")}</span><h3>{focus.name}</h3><p>{focus.why}</p><a class="text-link light" href={focus.href}>Explore service <b aria-hidden="true">↗</b></a></article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-paper">
+    <div class="shell related-layout">
+      <div><p class="eyebrow">Nearby and related</p><h2>Keep exploring the service territory.</h2></div>
+      <div class="related-ledger">{location.relatedLinks.map((link, index) => <a href={link.href}><span>{String(index + 1).padStart(2, "0")}</span><strong>{link.label}</strong><b aria-hidden="true">↗</b></a>)}</div>
+    </div>
+  </section>
+
+  <section class="section section-light">
+    <div class="shell faq-layout"><div><p class="eyebrow">{location.name} questions</p><h2>Confirm the route and the scope.</h2></div><FAQList items={location.faqs} /></div>
+  </section>
+
+  <CTASection eyebrow={`${location.name} commercial cleaning`} title="Tell LT Janitorial where the facility is and what it needs." />
+</BaseLayout>
+
+<style>
+  .location-hero {
+    position: relative;
+    min-height: 48rem;
+    display: grid;
+    align-items: end;
+    isolation: isolate;
+    overflow: hidden;
+  }
+
+  .location-media {
+    position: absolute;
+    z-index: -2;
+    inset: 0;
+  }
+
+  .location-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .location-hero::after {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(9, 9, 7, 0.97), rgba(9, 9, 7, 0.76) 60%, rgba(9, 9, 7, 0.22));
+    content: "";
+  }
+
+  .location-content {
+    max-width: 70rem;
+    padding-block: clamp(6rem, 11vw, 10rem);
+  }
+
+  .location-content h1 {
+    font-size: clamp(3.3rem, 7vw, 7rem);
+  }
+
+  .confirmation-note {
+    max-width: 42rem;
+    padding: 1rem;
+    border-left: 3px solid var(--gold-light);
+    background: rgba(9, 9, 7, 0.72);
+    color: var(--ivory);
+    font-size: 0.85rem;
+  }
+
+  .location-ledger {
+    padding-block: 1.25rem;
+  }
+
+  .location-ledger .shell {
+    display: grid;
+    grid-template-columns: 10rem 1fr auto;
+    gap: 1.5rem;
+  }
+
+  .location-ledger span,
+  .location-ledger small {
+    color: var(--gold-deep);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .priority-grid,
+  .focus-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1px;
+    border: 1px solid var(--line-light);
+    background: var(--line-light);
+  }
+
+  .priority-grid article,
+  .focus-grid article {
+    min-height: 16rem;
+    padding: 2rem;
+    background: var(--paper);
+  }
+
+  .priority-grid span,
+  .focus-grid span {
+    display: block;
+    margin-bottom: 3.5rem;
+    color: var(--gold-deep);
+    font-size: 0.68rem;
+    font-weight: 800;
+  }
+
+  .priority-grid h3 {
+    font-size: 1.45rem;
+  }
+
+  .focus-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    border-color: var(--line-dark);
+    background: var(--line-dark);
+  }
+
+  .focus-grid article {
+    min-height: 23rem;
+    background: var(--ink-soft);
+  }
+
+  .focus-grid p {
+    color: var(--muted-dark);
+  }
+
+  .related-layout,
+  .faq-layout {
+    display: grid;
+    grid-template-columns: minmax(16rem, 0.4fr) minmax(0, 0.6fr);
+    gap: clamp(3rem, 8vw, 8rem);
+  }
+
+  .related-ledger {
+    border-top: 1px solid var(--line-light);
+  }
+
+  .related-ledger a {
+    display: grid;
+    grid-template-columns: 3rem 1fr 2rem;
+    gap: 1rem;
+    padding: 1.2rem 0;
+    border-bottom: 1px solid var(--line-light);
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .related-ledger span {
+    color: var(--gold-deep);
+    font-size: 0.68rem;
+    font-weight: 800;
+  }
+
+  .related-ledger strong {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    font-weight: 500;
+  }
+
+  @media (max-width: 900px) {
+    .priority-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .focus-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .location-ledger .shell,
+    .related-layout,
+    .faq-layout,
+    .priority-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .location-ledger .shell {
+      gap: 0.2rem;
+    }
+  }
+</style>
