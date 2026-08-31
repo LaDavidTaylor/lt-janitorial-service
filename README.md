@@ -14,6 +14,7 @@ A standalone Astro website for LT Janitorial Service, LLC. The build preserves t
 8. Canonical tags, unique metadata, XML sitemap, robots policy, and `llms.txt`.
 9. Permanent redirects for the indexed routes from the existing Wix site.
 10. Security headers and a mobile action bar.
+11. A branded 1200 by 630 Open Graph image for social sharing previews.
 
 ## Local commands
 

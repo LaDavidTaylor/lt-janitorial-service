@@ -20,8 +20,8 @@ const {
   title,
   description,
   canonicalPath = Astro.url.pathname,
-  image = "/images/generated/commercial-cleaning-hero.webp",
-  imageAlt = "Polished commercial facility prepared for daily operations",
+  image = "/images/social/lt-janitorial-og.jpg",
+  imageAlt = "LT Janitorial commercial cleaning and floor care across Dallas, Collin, and Rockwall counties",
   noindex = false,
   schemas = [],
   bodyClass = "",
@@ -79,6 +79,7 @@ const baseSchemas: Record<string, unknown>[] = [
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={socialImage} />
+    <meta name="twitter:image:alt" content={getImageAlt(image, imageAlt)} />
     <title>{fullTitle}</title>
     {[...baseSchemas, ...schemas].map((schema) => <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />)}
   </head>
