@@ -29,6 +29,8 @@ The Resend CNAME, DKIM, and DMARC records remain in Wix. Resend reports `ltjanit
 
 The `ltjanitorial.us` domain property is verified in Google Search Console under LaDavid Taylor's Google account. Google accepted and successfully fetched `https://www.ltjanitorial.us/sitemap-index.xml` on September 15, 2026.
 
+The canonical `https://www.ltjanitorial.us` property is also verified in Bing Webmaster Tools under LaDavid Taylor's Google account. Bing can discover the production sitemap through the `Sitemap` directive in `robots.txt`. IndexNow support is configured for faster discovery across Bing, Copilot, and other participating search engines; run `npm run submit:indexnow` after material URL changes.
+
 ## Contact form
 
 The Vercel function at `api/contact.js` validates required fields, checks same origin requests, uses a hidden spam field, sends a structured Resend notification, and sets the visitor email as the reply address. It does not save submissions in a customer database.

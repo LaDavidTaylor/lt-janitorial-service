@@ -8,6 +8,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
+    "submit:indexnow": "node scripts/submit-indexnow.mjs",
     "test:contact": "node scripts/test-contact-api.mjs",
     "qa:site": "node scripts/qa-site.mjs"
   },

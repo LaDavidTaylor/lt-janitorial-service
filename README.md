@@ -49,6 +49,8 @@ All generated imagery is illustrative. It does not depict LT Janitorial employee
 
 The site includes distinct city copy, distinct service copy, direct answer sections, page specific questions, contextual internal links, structured data, optimized image files, clean canonical URLs, crawler permissions, and an AI readable `llms.txt` summary.
 
+The production sitemap is referenced in `robots.txt` for Google, Bing, and other compliant crawlers. Bing ownership is verified with the `msvalidate.01` meta tag. Run `npm run submit:indexnow` after publishing material URL changes to notify Bing and other IndexNow participants.
+
 The Google Business Profile should be corrected and connected before the production domain is indexed. Current profile issues and client confirmations are listed in `CLIENT_INPUTS.md`.
 
 ## Deployment targets

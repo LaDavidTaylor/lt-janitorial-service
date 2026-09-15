@@ -20,6 +20,8 @@
 16. Caddo Mills remains excluded from indexing.
 17. Wix authoritative DNS preserves the Resend verification records.
 18. The `ltjanitorial.us` Google Search Console domain property is verified under LaDavid Taylor's Google account, and `https://www.ltjanitorial.us/sitemap-index.xml` was submitted and fetched successfully.
+19. The canonical production property is verified in Bing Webmaster Tools under LaDavid Taylor's Google account.
+20. Bing can discover `https://www.ltjanitorial.us/sitemap-index.xml` through `robots.txt`, and IndexNow support is configured for faster Bing and Copilot discovery.
 
 ## Follow up items
 
