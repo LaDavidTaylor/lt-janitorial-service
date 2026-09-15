@@ -9,6 +9,10 @@ const { compact = false } = Astro.props;
 ---
 
 <form class:list={["quote-form", { compact }]} data-quote-form>
+  <label class="website-field" aria-hidden="true">
+    <span>Website</span>
+    <input name="website" type="text" autocomplete="off" tabindex="-1" />
+  </label>
   <div class="form-grid">
     <label>
       <span>Your name</span>
@@ -89,10 +93,10 @@ const { compact = false } = Astro.props;
 
   <label class="consent">
     <input name="consent" type="checkbox" required />
-    <span>I understand this button opens my email application so I can review and send the request to LT Janitorial.</span>
+    <span>I agree to send these details to LT Janitorial for a response to my request. See the <a href="/privacy">privacy notice</a>.</span>
   </label>
 
-  <button class="button button-gold" type="submit">Prepare my email request</button>
+  <button class="button button-gold" type="submit">Send my quote request</button>
   <p class="form-status" data-form-status aria-live="polite"></p>
   <noscript>
     <p>JavaScript is required to prepare the email. You can email <a href={business.emailHref}>{business.email}</a> or call <a href={business.phoneHref}>{business.phoneDisplay}</a>.</p>
@@ -111,51 +115,56 @@ const { compact = false } = Astro.props;
       if (selectedProgram) programSelect.value = selectedProgram;
     }
 
-    formElement.addEventListener("submit", (event) => {
+    formElement.addEventListener("submit", async (event) => {
       event.preventDefault();
       if (!formElement.reportValidity()) return;
 
       const data = new FormData(formElement);
-      const fields = [
-        ["Name", data.get("name")],
-        ["Company or facility", data.get("company")],
-        ["Phone", data.get("phone")],
-        ["Email", data.get("email")],
-        ["Facility type", data.get("facility")],
-        ["City or ZIP code", data.get("location")],
-        ["Approximate square footage", data.get("size") || "Not provided"],
-        ["Preferred frequency", data.get("frequency")],
-        ["Program interest", data.get("program")],
-        ["Preferred service window", data.get("serviceWindow") || "Not provided"],
-        ["Desired start date", data.get("startDate") || "Not provided"],
-        ["Services and priorities", data.get("services") || "Not provided"],
-        ["Additional notes", data.get("notes") || "Not provided"],
-      ];
-
-      const company = String(data.get("company") || "Commercial facility");
-      const subject = `Facility cleaning request from ${company}`;
-      const body = [
-        "Hello LT Janitorial,",
-        "",
-        "I would like to discuss a commercial cleaning scope.",
-        "",
-        ...fields.map(([label, value]) => `${label}: ${String(value)}`),
-        "",
-        "Please contact me about the next step.",
-      ].join("\n");
-
       const status = formElement.querySelector("[data-form-status]");
-      if (status) status.textContent = "Your email application is opening with the request details prepared for review.";
-      window.location.href = `mailto:${destination}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      const submitButton = formElement.querySelector('button[type="submit"]');
+      if (submitButton instanceof HTMLButtonElement) submitButton.disabled = true;
+      if (status) status.textContent = "Sending your request securely...";
+
+      try {
+        const response = await fetch("/api/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(Object.fromEntries(data.entries())),
+        });
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok || !result.ok) throw new Error(result.error || "Unable to send");
+
+        formElement.reset();
+        if (status) status.textContent = "Thank you. Your request was sent to LT Janitorial, and the team can now follow up with you.";
+      } catch {
+        if (status) {
+          status.textContent = "The form could not send your request. Please email ";
+          const fallbackLink = document.createElement("a");
+          fallbackLink.href = `mailto:${destination}`;
+          fallbackLink.textContent = destination;
+          status.append(fallbackLink, " or call LT Janitorial.");
+        }
+      } finally {
+        if (submitButton instanceof HTMLButtonElement) submitButton.disabled = false;
+      }
     });
   });
 </script>
 
 <style>
   .quote-form {
+    position: relative;
     padding: clamp(1.5rem, 4vw, 3rem);
     border: 1px solid var(--line-dark);
     background: var(--ink-soft);
+  }
+
+  .website-field {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
   }
 
   .form-grid {
@@ -229,6 +238,15 @@ const { compact = false } = Astro.props;
     font-weight: 400;
     letter-spacing: 0;
     text-transform: none;
+  }
+
+  .consent a {
+    color: var(--gold-light);
+  }
+
+  button:disabled {
+    cursor: wait;
+    opacity: 0.65;
   }
 
   .form-status {

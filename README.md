@@ -9,7 +9,7 @@ A standalone Astro website for LT Janitorial Service, LLC. The build preserves t
 3. Thirteen prepared location pages, with Caddo Mills excluded from indexing until coverage is confirmed.
 4. Eight facility and industry pages.
 5. Seven long form planning resources.
-6. Quote planner, Calendly path, direct phone links, and direct email links.
+6. Server processed quote form, Calendly path, direct phone links, and direct email links.
 7. Organization, Service, FAQPage, BreadcrumbList, and Article structured data.
 8. Canonical tags, unique metadata, XML sitemap, robots policy, and `llms.txt`.
 9. Permanent redirects for the indexed routes from the existing Wix site.
@@ -29,7 +29,9 @@ npm run preview
 
 ## Conversion behavior
 
-The quote planner validates the facility fields, prepares a structured email, and opens the visitor's own email application. It does not send data to a database. The selected Silver, Gold, or Platinum program is carried into the planner through the URL and included in the prepared message.
+The quote form validates the facility fields and sends a structured notification to LT Janitorial through a Vercel function and Resend. It does not save submissions in a customer database. The selected Silver, Gold, or Platinum program is carried into the form through the URL and included in the notification.
+
+The production runtime needs `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, and `CONTACT_NOTIFICATION_EMAIL`. Secret values belong in Vercel environment variables and must not be committed.
 
 The current contact paths are:
 
@@ -51,9 +53,10 @@ The Google Business Profile should be corrected and connected before the product
 
 ## Deployment targets
 
-1. GitHub: `JxWayne890/lt-janitorial-service`
-2. Vercel: `https://ltjanitorial.vercel.app`
-3. Production domain: awaiting LaDavid's decision
+1. Source GitHub repository: `JxWayne890/lt-janitorial-service`
+2. Client owned GitHub repository: `LaDavidTaylor/lt-janitorial-service`
+3. Current preview: `https://ltjanitorial.vercel.app`
+4. Production domain: `https://www.ltjanitorial.us`
 
 ## Project references
 

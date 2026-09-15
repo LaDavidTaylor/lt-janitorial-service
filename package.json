@@ -8,6 +8,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
+    "test:contact": "node scripts/test-contact-api.mjs",
     "qa:site": "node scripts/qa-site.mjs"
   },
   "dependencies": {

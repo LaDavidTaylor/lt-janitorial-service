@@ -6,13 +6,13 @@ import { business } from "../data/business";
 
 <BaseLayout
   title="Privacy Notice"
-  description="Read how the LT Janitorial website handles quote details, email links, scheduling links, and connected services."
+  description="Read how the LT Janitorial website handles quote details, email delivery, scheduling links, and connected services."
   canonicalPath="/privacy"
 >
   <InnerHero
     eyebrow="Privacy notice"
     title="A clear account of how this website handles your information."
-    intro="The quote planner does not submit information to a website database. It prepares an email inside your own mail application."
+    intro="The quote form sends the details you provide to LT Janitorial so the team can respond to your request."
     image="/images/generated/commercial-cleaning-hero.webp"
     imageAlt="Quiet commercial lobby with refined architectural finishes"
     primaryHref={business.emailHref}
@@ -23,13 +23,14 @@ import { business } from "../data/business";
 
   <section class="section section-light">
     <div class="shell legal prose">
-      <p>Last prepared August 31, 2026.</p>
-      <h2>Current quote planner</h2>
-      <p>The quote planner runs in your browser. When you submit it, the website prepares a message using an email link and opens your configured email application. The website does not send the form to a database, store the field values on a server, or notify LT Janitorial until you choose to send the email.</p>
+      <p>Last updated September 15, 2026.</p>
+      <h2>Quote form submissions</h2>
+      <p>When you submit the quote form, the website sends the contact and facility details you provide to LT Janitorial. The form asks for your name, company or facility, phone number, email address, facility type, location, service preferences, and any notes you choose to share. LT Janitorial uses this information to respond to your request and discuss possible services.</p>
+      <p>The current website does not save quote submissions in a customer database. Vercel processes the web request, and Resend processes the email delivery to LT Janitorial. Those providers may process technical and delivery information as part of operating and protecting their services. The delivered request remains in the business email account according to LT Janitorial's email practices.</p>
       <h2>Direct links</h2>
       <p>Telephone links can open your device dialer. Email links can open your mail application. The facility walk through link opens Calendly, and public profile links can open Google, Facebook, or Instagram. Those services maintain their own privacy practices.</p>
       <h2>Analytics and connected services</h2>
-      <p>This website does not currently use a customer database, advertising tracker, or form analytics provider. If new services are added, this notice should be updated to explain what they process and what choices visitors have.</p>
+      <p>This website does not currently use a customer database, advertising tracker, or form analytics provider. The site uses Vercel for hosting and Resend for contact form email delivery. If new services are added, this notice should be updated to explain what they process and what choices visitors have.</p>
       <h2>Business contact</h2>
       <p>Questions about this notice can be directed to <a href={business.emailHref}>{business.email}</a> or <a href={business.phoneHref}>{business.phoneDisplay}</a>.</p>
     </div>

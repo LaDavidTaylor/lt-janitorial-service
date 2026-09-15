@@ -12,7 +12,7 @@ Allow: /
 User-agent: ChatGPT-User
 Allow: /
 
-Sitemap: https://ltjanitorial.vercel.app/sitemap-index.xml
+Sitemap: https://www.ltjanitorial.us/sitemap-index.xml
 `;
 
 export const GET: APIRoute = () => new Response(body, {

@@ -35,6 +35,7 @@ These items should be confirmed with LaDavid before the preview becomes the inde
 
 ## Domain and lead handling
 
-1. Choose whether `ltjanitorial.us`, `ltjanitorial.com`, or another domain will be the production address.
-2. Decide whether the quote planner should remain email based or be connected to a CRM and notification workflow.
-3. If analytics, advertising, CRM, or server side form processing is added, update the privacy notice before launch.
+1. `www.ltjanitorial.us` is the selected production address, with `ltjanitorial.us` redirected to it.
+2. The quote form is connected to a server processed Resend notification workflow and does not save submissions in a customer database.
+3. Confirm that `clean@ltjs.info` should receive every website quote notification.
+4. If analytics, advertising, or a CRM is added later, update the privacy notice before enabling it.

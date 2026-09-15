@@ -3,6 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import FAQList from "../../components/FAQList.astro";
 import CTASection from "../../components/CTASection.astro";
+import { business } from "../../data/business";
 import { guides, type GuidePage } from "../../data/guides";
 import { getImageAlt } from "../../data/images";
 import { breadcrumbSchema, faqSchema } from "../../lib/schema";
@@ -28,12 +29,12 @@ const schemas = [
     "@type": "Article",
     headline: guide.title,
     description: guide.metaDescription,
-    image: new URL(guide.image, "https://ltjanitorial.vercel.app").href,
+    image: new URL(guide.image, business.siteUrl).href,
     datePublished: "2026-08-31",
     dateModified: "2026-08-31",
-    author: { "@type": "Organization", "@id": "https://ltjanitorial.vercel.app/#organization", name: "LT Janitorial Service, LLC" },
-    publisher: { "@type": "Organization", "@id": "https://ltjanitorial.vercel.app/#organization", name: "LT Janitorial Service, LLC" },
-    mainEntityOfPage: new URL(`/resources/${guide.slug}`, "https://ltjanitorial.vercel.app").href,
+    author: { "@type": "Organization", "@id": `${business.siteUrl}/#organization`, name: "LT Janitorial Service, LLC" },
+    publisher: { "@type": "Organization", "@id": `${business.siteUrl}/#organization`, name: "LT Janitorial Service, LLC" },
+    mainEntityOfPage: new URL(`/resources/${guide.slug}`, business.siteUrl).href,
   },
 ];
 ---

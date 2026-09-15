@@ -6,8 +6,7 @@ export const business = {
   phoneHref: "tel:+14695977230",
   email: "clean@ltjs.info",
   emailHref: "mailto:clean@ltjs.info",
-  previewUrl: "https://ltjanitorial.vercel.app",
-  currentUrl: "https://www.ltjanitorial.us",
+  siteUrl: "https://www.ltjanitorial.us",
   calendly: "https://calendly.com/ltjanitorial/walk-thru",
   googleProfile:
     "https://www.google.com/maps/search/?api=1&query=LT%20Janitorial%20Service%2C%20LLC&query_place_id=ChIJR7MpvNe1fAMRbx2oFnV87tk",

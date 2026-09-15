@@ -2,7 +2,7 @@ import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 
 export default defineConfig({
-  site: "https://ltjanitorial.vercel.app",
+  site: "https://www.ltjanitorial.us",
   output: "static",
   integrations: [
     sitemap({

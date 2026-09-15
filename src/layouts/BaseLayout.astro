@@ -27,7 +27,7 @@ const {
   bodyClass = "",
 } = Astro.props;
 
-const site = Astro.site ?? new URL(business.previewUrl);
+const site = Astro.site ?? new URL(business.siteUrl);
 const canonical = new URL(canonicalPath, site);
 const socialImage = new URL(image, site);
 const fullTitle = title.includes(business.shortName) ? title : `${title} | ${business.shortName}`;

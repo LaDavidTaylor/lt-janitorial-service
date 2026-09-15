@@ -6,10 +6,10 @@ import { launchReadyLocations } from "../data/locations";
 import { guides } from "../data/guides";
 
 export const GET: APIRoute = () => {
-  const serviceLines = services.map((service) => `${service.name}: ${business.previewUrl}/services/${service.slug}`);
-  const industryLines = industries.map((industry) => `${industry.name}: ${business.previewUrl}/industries/${industry.slug}`);
-  const locationLines = launchReadyLocations.map((location) => `${location.name}: ${business.previewUrl}/service-areas/${location.slug}`);
-  const guideLines = guides.map((guide) => `${guide.title}: ${business.previewUrl}/resources/${guide.slug}`);
+  const serviceLines = services.map((service) => `${service.name}: ${business.siteUrl}/services/${service.slug}`);
+  const industryLines = industries.map((industry) => `${industry.name}: ${business.siteUrl}/industries/${industry.slug}`);
+  const locationLines = launchReadyLocations.map((location) => `${location.name}: ${business.siteUrl}/service-areas/${location.slug}`);
+  const guideLines = guides.map((guide) => `${guide.title}: ${business.siteUrl}/resources/${guide.slug}`);
 
   const body = [
     `# ${business.name}`,
@@ -21,7 +21,7 @@ export const GET: APIRoute = () => {
     `Phone: ${business.phoneDisplay}`,
     `Email: ${business.email}`,
     `Facility walk through scheduling: ${business.calendly}`,
-    `Website: ${business.previewUrl}`,
+    `Website: ${business.siteUrl}`,
     "",
     "## Primary services",
     "",
@@ -50,9 +50,9 @@ export const GET: APIRoute = () => {
     "",
     "## Primary conversion pages",
     "",
-    `Request a quote: ${business.previewUrl}/quote`,
-    `Contact options: ${business.previewUrl}/contact`,
-    `Frequently asked questions: ${business.previewUrl}/faq`,
+    `Request a quote: ${business.siteUrl}/quote`,
+    `Contact options: ${business.siteUrl}/contact`,
+    `Frequently asked questions: ${business.siteUrl}/faq`,
   ].join("\n");
 
   return new Response(body, {

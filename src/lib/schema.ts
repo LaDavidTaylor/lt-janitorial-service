@@ -8,7 +8,7 @@ export function breadcrumbSchema(items: { name: string; path: string }[]) {
       "@type": "ListItem",
       position: index + 1,
       name: item.name,
-      item: new URL(item.path, business.previewUrl).href,
+      item: new URL(item.path, business.siteUrl).href,
     })),
   };
 }
@@ -26,7 +26,7 @@ export function faqSchema(items: { question: string; answer: string }[]) {
 }
 
 export function serviceSchema(name: string, description: string, areaServed?: string[], path = "/services") {
-  const url = new URL(path, business.previewUrl).href;
+  const url = new URL(path, business.siteUrl).href;
   return {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -35,10 +35,10 @@ export function serviceSchema(name: string, description: string, areaServed?: st
     name,
     description,
     provider: {
-      "@id": `${business.previewUrl}/#organization`,
+      "@id": `${business.siteUrl}/#organization`,
       "@type": "Organization",
       name: business.name,
-      url: business.previewUrl,
+      url: business.siteUrl,
       telephone: "+14695977230",
     },
     areaServed: (areaServed ?? [...business.counties]).map((area) => ({
