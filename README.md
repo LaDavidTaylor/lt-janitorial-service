@@ -31,7 +31,7 @@ npm run preview
 
 The quote form validates the facility fields and sends a structured notification to LT Janitorial through a Vercel function and Resend. It does not save submissions in a customer database. The selected Silver, Gold, or Platinum program is carried into the form through the URL and included in the notification.
 
-The production runtime needs `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, and `CONTACT_NOTIFICATION_EMAIL`. Secret values belong in Vercel environment variables and must not be committed.
+The production runtime needs `PUBLIC_SITE_URL`, `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, and `CONTACT_NOTIFICATION_EMAIL`. Secret values belong in Vercel environment variables and must not be committed.
 
 The current contact paths are:
 
@@ -53,10 +53,11 @@ The Google Business Profile should be corrected and connected before the product
 
 ## Deployment targets
 
-1. Source GitHub repository: `JxWayne890/lt-janitorial-service`
+1. Original GitHub repository: `JxWayne890/lt-janitorial-service`
 2. Client owned GitHub repository: `LaDavidTaylor/lt-janitorial-service`
-3. Current preview: `https://ltjanitorial.vercel.app`
+3. Client owned Vercel deployment: `https://lt-janitorial-service.vercel.app`
 4. Production domain: `https://www.ltjanitorial.us`
+5. Historical preview: `https://ltjanitorial.vercel.app`
 
 ## Project references
 
