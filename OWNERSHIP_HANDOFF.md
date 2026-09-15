@@ -27,6 +27,8 @@ Vercel reports valid configuration for both `ltjanitorial.us` and `www.ltjanitor
 
 The Resend CNAME, DKIM, and DMARC records remain in Wix. Resend reports `ltjanitorial.us` as verified.
 
+The `ltjanitorial.us` domain property is verified in Google Search Console under LaDavid Taylor's Google account. Google accepted and successfully fetched `https://www.ltjanitorial.us/sitemap-index.xml` on September 15, 2026.
+
 ## Contact form
 
 The Vercel function at `api/contact.js` validates required fields, checks same origin requests, uses a hidden spam field, sends a structured Resend notification, and sets the visitor email as the reply address. It does not save submissions in a customer database.
