@@ -22,6 +22,7 @@
 18. The `ltjanitorial.us` Google Search Console domain property is verified under LaDavid Taylor's Google account, and `https://www.ltjanitorial.us/sitemap-index.xml` was submitted and fetched successfully.
 19. The canonical production property is verified in Bing Webmaster Tools under LaDavid Taylor's Google account.
 20. Bing can discover `https://www.ltjanitorial.us/sitemap-index.xml` through `robots.txt`, and IndexNow accepted the initial batch of 71 canonical URLs for faster Bing and Copilot discovery.
+21. The production Open Graph image is a branded 1200 by 630 JPEG, and social metadata includes its secure URL, MIME type, dimensions, and accessible description.
 
 ## Follow up items
 

@@ -31,6 +31,8 @@ The `ltjanitorial.us` domain property is verified in Google Search Console under
 
 The canonical `https://www.ltjanitorial.us` property is also verified in Bing Webmaster Tools under LaDavid Taylor's Google account. Bing can discover the production sitemap through the `Sitemap` directive in `robots.txt`. IndexNow accepted the initial batch of 71 canonical URLs for faster discovery across Bing, Copilot, and other participating search engines; run `npm run submit:indexnow` after material URL changes.
 
+The branded social preview image is published at `https://www.ltjanitorial.us/images/social/lt-janitorial-og.jpg`. The site provides complete Open Graph and large Twitter card metadata for social networks, messaging applications, and link preview crawlers.
+
 ## Contact form
 
 The Vercel function at `api/contact.js` validates required fields, checks same origin requests, uses a hidden spam field, sends a structured Resend notification, and sets the visitor email as the reply address. It does not save submissions in a customer database.

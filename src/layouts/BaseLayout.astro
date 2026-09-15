@@ -11,6 +11,9 @@ interface Props {
   canonicalPath?: string;
   image?: string;
   imageAlt?: string;
+  imageWidth?: number;
+  imageHeight?: number;
+  imageType?: string;
   noindex?: boolean;
   schemas?: Record<string, unknown>[];
   bodyClass?: string;
@@ -22,6 +25,9 @@ const {
   canonicalPath = Astro.url.pathname,
   image = "/images/social/lt-janitorial-og.jpg",
   imageAlt = "LT Janitorial commercial cleaning and floor care across Dallas, Collin, and Rockwall counties",
+  imageWidth,
+  imageHeight,
+  imageType,
   noindex = false,
   schemas = [],
   bodyClass = "",
@@ -30,6 +36,10 @@ const {
 const site = Astro.site ?? new URL(business.siteUrl);
 const canonical = new URL(canonicalPath, site);
 const socialImage = new URL(image, site);
+const isBrandedSocialImage = image === "/images/social/lt-janitorial-og.jpg";
+const resolvedImageWidth = imageWidth ?? (isBrandedSocialImage ? 1200 : 1672);
+const resolvedImageHeight = imageHeight ?? (isBrandedSocialImage ? 630 : 941);
+const resolvedImageType = imageType ?? (image.endsWith(".webp") ? "image/webp" : image.endsWith(".png") ? "image/png" : "image/jpeg");
 const fullTitle = title.includes(business.shortName) ? title : `${title} | ${business.shortName}`;
 
 const baseSchemas: Record<string, unknown>[] = [
@@ -70,11 +80,17 @@ const baseSchemas: Record<string, unknown>[] = [
     <link rel="icon" href="/brand/lt-janitorial-favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/brand/lt-janitorial-emblem.png" />
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:site_name" content={business.name} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={socialImage} />
+    <meta property="og:image:url" content={socialImage} />
+    <meta property="og:image:secure_url" content={socialImage} />
+    <meta property="og:image:type" content={resolvedImageType} />
+    <meta property="og:image:width" content={String(resolvedImageWidth)} />
+    <meta property="og:image:height" content={String(resolvedImageHeight)} />
     <meta property="og:image:alt" content={getImageAlt(image, imageAlt)} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={fullTitle} />
